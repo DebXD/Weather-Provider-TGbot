@@ -1,5 +1,6 @@
 import telebot,requests,math
-from creds import BOT_TOKEN, api_address
+from icons import icons
+from creds import BOT_TOKEN,api_address
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
@@ -29,19 +30,26 @@ def send_weather(message):
             
             if error_code == 200:
                 city_name = json_data['name']
+                
                 weather_data = json_data['weather'][0]['main']
 
                 wind_speed = json_data['wind']['speed']
+                icon = json_data['weather'][0]['icon']
 
                 formatted_data = json_data['main']['temp']
                 temp_data = formatted_data - 273.15
                 temp_data2 = math.floor(temp_data)
                 temp = str(temp_data2)+"°C"
+
+
+                for i in icons.keys():
+                    if i==icon:                                         weather_icon = icons[i]
           
-                bot.reply_to(message, f'''🔹<i> The ⛅ Weather 🔆 of <b> {city_name} </b> is  :<b> {weather_data}</b> \n🔹 The Temperature 🌡️ is Approx : <b>{temp} </b> \n🔹 The Wind Speed is : <b> {wind_speed}  Km/h</b> </i>''',parse_mode = "HTML")
+                bot.reply_to(message, f'''🔹<i> The  Weather 🌍 of <b> {city_name} </b> is  :<b> {weather_data} </b> {weather_icon} \n🔹 The Temperature 🌡️ is Approx : <b>{temp} </b> \n🔹 The Wind 💨 Speed is : <b> {wind_speed}  Km/h</b> </i>''',parse_mode = "HTML")
+                
                 print("Request Successful 🤟")
             else:
-                bot.reply_to(message,"City Not Found!😞 \nPlease Enter a Valid City😃.")
+                bot.reply_to(message,"City Not Found!😞 \nPlease Enter a Valid City.🙂")
         else:
             bot.reply_to(message,"Somethings goes wrong!😢")
     
