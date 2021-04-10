@@ -1,8 +1,10 @@
+from decouple import config
 import telebot,requests,math
 from icons import icons
-from creds import BOT_TOKEN,api_address
 
-bot = telebot.TeleBot(BOT_TOKEN)
+
+bot = telebot.TeleBot(config("BOT_TOKEN"))
+api_address = config('address')
 
 @bot.message_handler(commands=["start"])
 def send_welcome(message):
@@ -45,7 +47,7 @@ def send_weather(message):
                 for i in icons.keys():
                     if i==icon:                                         weather_icon = icons[i]
           
-                bot.reply_to(message, f'''🔹<i> The  Weather 🌍 of <b> {city_name} </b> is  :<b> {weather_data} </b> {weather_icon} \n🔹 The Temperature 🌡️ is Approx : <b>{temp} </b> \n🔹 The Wind 💨 Speed is : <b> {wind_speed}  Km/h</b> </i>''',parse_mode = "HTML")
+                bot.reply_to(message, f'''🔹<i> The  Weather 🌍 of <b> {city_name} </b> is :<b> {weather_data} </b> {weather_icon} \n🔹 The Temperature 🌡️ is Approx : <b>{temp} </b> \n🔹 The Wind 💨 Speed is : <b> {wind_speed}  Km/h</b> </i>''',parse_mode = "HTML")
                 
                 print("Request Successful 🤟")
             else:
@@ -55,4 +57,4 @@ def send_weather(message):
     
 
 
-bot.polling()
+bot.polling(none_stop=True)
