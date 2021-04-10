@@ -3,7 +3,7 @@ import telebot,requests,math
 from icons import icons
 
 
-bot = telebot.TeleBot(config("BOT_TOKEN"))
+bot = telebot.TeleBot(config('BOT_TOKEN'))
 api_address = config('address')
 
 @bot.message_handler(commands=["start"])
@@ -45,7 +45,8 @@ def send_weather(message):
 
 
                 for i in icons.keys():
-                    if i==icon:                                         weather_icon = icons[i]
+                    if i==icon:
+                        weather_icon = icons[i]
           
                 bot.reply_to(message, f'''🔹<i> The  Weather 🌍 of <b> {city_name} </b> is :<b> {weather_data} </b> {weather_icon} \n🔹 The Temperature 🌡️ is Approx : <b>{temp} </b> \n🔹 The Wind 💨 Speed is : <b> {wind_speed}  Km/h</b> </i>''',parse_mode = "HTML")
                 
