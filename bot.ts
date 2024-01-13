@@ -5,14 +5,11 @@ import {
   InlineQueryResultBuilder,
 } from "https://deno.land/x/grammy/mod.ts";
 
-import { load } from "https://deno.land/std/dotenv/mod.ts";
-const env = await load();
-const botToken = env["BOT_TOKEN"];
 import getLocationData from "./apis/getCityLocation.ts";
 import getWeatherData from "./apis/getWeatherData.ts";
 import { LocationDataType, WeatherDataType } from "./types.ts";
 
-const bot = new Bot(botToken);
+export const bot = new Bot(Deno.env.get("BOT_TOKEN") || "");
 
 bot.inlineQuery(/kolkata/, async (ctx: Context) => {
   const result = InlineQueryResultBuilder
