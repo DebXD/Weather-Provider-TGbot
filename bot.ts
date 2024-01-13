@@ -71,4 +71,4 @@ bot.command("weather", async (ctx: Context) => {
 
 // bot.on("message", (ctx) => ctx.reply("Got another message!"));
 
-bot.start();
+export default bot;
